@@ -32,7 +32,7 @@ public class CalculatorModel {
     }
 
     // Checks
-    private boolean isNotZero(double num) {
+    public boolean isNotZero(double num) {
         return num != 0;
     }
 
