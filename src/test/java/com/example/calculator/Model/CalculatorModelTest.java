@@ -1,8 +1,6 @@
-package com.example.calculator.model;
+package com.example.calculator.Model;
 
-import com.example.calculator.Model.CalculatorModel;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorModelTest {
     @Test

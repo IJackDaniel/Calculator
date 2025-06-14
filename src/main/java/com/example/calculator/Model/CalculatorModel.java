@@ -1,34 +1,25 @@
 package com.example.calculator.Model;
 
 public class CalculatorModel {
-    private double num1;
-    private double num2;
-    private double result;
+    private double accumulator;
+    private double currentInput;
 
     // Setters
-    public void setNum1(double num1) {
-        this.num1 = num1;
+    public void setAccumulator(double num1) {
+        this.accumulator = num1;
     }
 
-    public void setNum2(double num2) {
-        this.num2 = num2;
-    }
-
-    public void setResult(double result) {
-        this.result = result;
+    public void setCurrentInput(double num2) {
+        this.currentInput = num2;
     }
 
     // Getters
-    public double getNum1() {
-        return num1;
+    public double getAccumulator() {
+        return accumulator;
     }
 
-    public double getNum2() {
-        return num2;
-    }
-
-    public double getResult() {
-        return result;
+    public double getCurrentInput() {
+        return currentInput;
     }
 
     // Checks
