@@ -42,6 +42,7 @@ public class CalculatorModelTest {
 
             assertEquals("Second number must be integer", exception.getMessage());
             assertEquals(3.563, model.getAccumulator(), 0.0001);
+            assertEquals(0, model.getCurrentInput(), 0.0001);
         }
     }
 
@@ -72,37 +73,37 @@ public class CalculatorModelTest {
     @Nested
     class SubtractionTests {
         @Test
-        void testSubstractionWithPositiveNumbers1() {
+        void testSubtractWithPositiveNumbers1() {
             CalculatorModel model = new CalculatorModel(9, 4);
-            model.subtraction();
+            model.subtract();
             assertEquals(5, model.getAccumulator(), 0.0001);
         }
 
         @Test
-        void testSubstractionWithPositiveNumbers2() {
+        void testSubtractWithPositiveNumbers2() {
             CalculatorModel model = new CalculatorModel(13, 27);
-            model.subtraction();
+            model.subtract();
             assertEquals(-14, model.getAccumulator(), 0.0001);
         }
 
         @Test
-        void testSubstractionWithNegativeNumbers() {
+        void testSubtractWithNegativeNumbers() {
             CalculatorModel model = new CalculatorModel(-6, 33);
-            model.subtraction();
+            model.subtract();
             assertEquals(-39, model.getAccumulator(), 0.0001);
         }
 
         @Test
-        void testSubstractionWithDoubleNumbers1() {
+        void testSubtractWithDoubleNumbers1() {
             CalculatorModel model = new CalculatorModel(6.65, 2.35);
-            model.subtraction();
+            model.subtract();
             assertEquals(4.3, model.getAccumulator(), 0.0001);
         }
 
         @Test
-        void testSubstractionWithDoubleNumbers2() {
+        void testSubtractWithDoubleNumbers2() {
             CalculatorModel model = new CalculatorModel(10, 2.3552);
-            model.subtraction();
+            model.subtract();
             assertEquals(7.6448, model.getAccumulator());
         }
     }
@@ -210,4 +211,11 @@ public class CalculatorModelTest {
         }
     }
 
+    @Test
+    void testCrearFunction() {
+        CalculatorModel model = new CalculatorModel(23, 4);
+        model.clear();
+        assertEquals(0, model.getAccumulator(), 0.0001);
+        assertEquals(0, model.getCurrentInput(), 0.0001);
+    }
 }
