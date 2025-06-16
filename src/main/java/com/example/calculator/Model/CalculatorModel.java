@@ -3,6 +3,7 @@ package com.example.calculator.Model;
 public class CalculatorModel {
     private double accumulator;
     private double currentInput;
+    private int accuracy = 5;
 
     // standard constructor
     CalculatorModel() { }
@@ -15,11 +16,11 @@ public class CalculatorModel {
 
     // Setters
     public void setAccumulator(double num1) {
-        this.accumulator = num1;
+        accumulator = num1;
     }
 
     public void setCurrentInput(double num2) {
-        this.currentInput = num2;
+        currentInput = num2;
     }
 
     // Getters
@@ -48,14 +49,32 @@ public class CalculatorModel {
 
     // Operations
     public void roundAccumulator() {
-        if (!isInteger(this.currentInput)) {
+        if (!isInteger(currentInput)) {
             throw new IllegalArgumentException("Second number must be integer");
         }
-        this.accumulator = round(this.accumulator, (int) this.currentInput);
+        accumulator = round(accumulator, (int) currentInput);
     }
 
     public void add() {
-        this.accumulator = round(this.accumulator + this.currentInput, 4);
-        this.currentInput = 0;
+        accumulator = round(accumulator + currentInput, accuracy);
+        currentInput = 0;
+    }
+
+    public void subtraction() {
+        accumulator = round(accumulator - currentInput, accuracy);
+        currentInput = 0;
+    }
+
+    public void multiplication() {
+        accumulator = round(accumulator * currentInput, accuracy);
+        currentInput = 0;
+    }
+
+    public void division() {
+        if (Math.abs(currentInput) < 0.0000001) {
+            throw new IllegalArgumentException("Second number must not be zero");
+        }
+        accumulator = round(accumulator / currentInput, accuracy);
+        currentInput = 0;
     }
 }
