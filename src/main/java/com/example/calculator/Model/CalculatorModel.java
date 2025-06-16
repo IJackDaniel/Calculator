@@ -48,12 +48,10 @@ public class CalculatorModel {
 
     // Operations
     public void roundAccumulator() {
-        if (isInteger(this.currentInput)) {
-            this.accumulator = round(this.accumulator, (int) this.currentInput);
+        if (!isInteger(this.currentInput)) {
+            throw new IllegalArgumentException("Second number must be integer");
         }
-        else {
-            System.out.println("Second number is not Integer!");
-        }
+        this.accumulator = round(this.accumulator, (int) this.currentInput);
     }
 
     public void add() {
