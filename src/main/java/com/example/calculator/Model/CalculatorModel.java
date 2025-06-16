@@ -4,6 +4,15 @@ public class CalculatorModel {
     private double accumulator;
     private double currentInput;
 
+    // standard constructor
+    CalculatorModel() { }
+
+    // constructor for tests
+    CalculatorModel(double num1, double num2) {
+        accumulator = num1;
+        currentInput = num2;
+    }
+
     // Setters
     public void setAccumulator(double num1) {
         this.accumulator = num1;
