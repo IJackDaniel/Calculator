@@ -1,5 +1,6 @@
 package com.example.calculator.View;
 
+import com.example.calculator.ViewModel.CalculatorViewModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -8,16 +9,17 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class CalculatorView extends Application{
+    private final CalculatorViewModel viewModel = new CalculatorViewModel();
 
     @Override
     public void start(Stage stage) {
         // Create elements of control
         TextField display = new TextField();
         display.setEditable(false);
-        // Bind for ViewModel
+        display.textProperty().bind(viewModel.getDisplayTextProperty());
 
         Label errorLabel = new Label();
-        // Bind for ViewModel
+        errorLabel.textProperty().bind(viewModel.getErrorTextProperty());
         errorLabel.setStyle("-fx-text-fill: red;");
 
         // Add buttons
@@ -36,6 +38,14 @@ public class CalculatorView extends Application{
             for (int col = 0; col < buttonLabels[row].length; col++) {
                 Button btn = new Button(buttonLabels[row][col]);
                 btn.setMinSize(50, 50);
+
+                String buttonText = buttonLabels[row][col];
+
+                if (Character.isDigit(buttonText.charAt(0))) {
+                    btn.setOnAction(e -> viewModel.handleDigit(buttonText));
+                } else {
+                    btn.setOnAction(e -> viewModel.handleOperation(buttonText));
+                }
 
                 buttonsGrid.add(btn, col, row);
             }

@@ -7,7 +7,7 @@ public class CalculatorModel {
     double EPSILON = 0.0000001;
 
     // standard constructor
-    CalculatorModel() { }
+    public CalculatorModel() { }
 
     // constructor for tests
     CalculatorModel(double num1, double num2) {
@@ -21,6 +21,7 @@ public class CalculatorModel {
     }
 
     public void setCurrentInput(double num) {
+        setAccumulator(getCurrentInput());
         currentInput = num;
     }
 
