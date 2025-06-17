@@ -50,15 +50,21 @@ public class CalculatorView extends Application{
                 buttonsGrid.add(btn, col, row);
             }
         }
+        Button equalsBtn = new Button("=");
+        equalsBtn.setMinHeight(50);
+        equalsBtn.setMaxWidth(240);
+        equalsBtn.setStyle("-fx-font-size: 18px;");
+        equalsBtn.setOnAction(e -> viewModel.handleOperation("="));
 
         // Interface
-        VBox root = new VBox(10, display, errorLabel, buttonsGrid);
+        VBox root = new VBox(10, display, errorLabel, buttonsGrid, equalsBtn);
         root.setPadding(new Insets(10));
         root.setStyle("-fx-background-color: #f0f0f0;");
 
         // Add window
-        Scene scene = new Scene(root, 250, 300);
+        Scene scene = new Scene(root, 235, 350);
         stage.setTitle("Calculator MVVM");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

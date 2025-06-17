@@ -5,6 +5,7 @@ public class CalculatorModel {
     private double currentInput;
     private int accuracy = 5;
     double EPSILON = 0.0000001;
+    private String operation;
 
     // standard constructor
     public CalculatorModel() { }
@@ -21,12 +22,15 @@ public class CalculatorModel {
     }
 
     public void setCurrentInput(double num) {
-        setAccumulator(getCurrentInput());
         currentInput = num;
     }
 
     public void setAccuracy(int num) {
         accuracy = num;
+    }
+
+    public void setOperation(String op) {
+        operation = op;
     }
 
     // Getters
@@ -40,6 +44,10 @@ public class CalculatorModel {
 
     public int getAccuracy() {
         return accuracy;
+    }
+
+    public String getOperation() {
+        return operation;
     }
 
     // Checks and internal operations
@@ -91,5 +99,36 @@ public class CalculatorModel {
     public void clear() {
         accumulator = 0;
         currentInput = 0;
+    }
+
+    public void execute() {
+        System.out.println("Выполняю");
+        System.out.println(getAccumulator());
+        System.out.println(getCurrentInput());
+        System.out.println(getOperation());
+        switch (operation) {
+            case "+":
+                add();
+                break;
+            case "-":
+                subtract();
+                break;
+            case "*":
+                multiplication();
+                break;
+            case "/":
+                division();
+                break;
+            case "round":
+                roundAccumulator();
+                break;
+            case "C":
+                clear();
+                break;
+        }
+        System.out.println("Готово!");
+        System.out.println(getAccumulator());
+        System.out.println(getCurrentInput());
+        System.out.println(getOperation());
     }
 }

@@ -7,8 +7,11 @@ public class CalculatorViewModel {
     private final CalculatorModel model = new CalculatorModel();
 
     // Properties for binding with View
-    private final StringProperty displayText = new SimpleStringProperty("0");
+    private final StringProperty displayText = new SimpleStringProperty("");
     private final StringProperty errorText = new SimpleStringProperty("");
+
+    // Other
+    private int inputChoice = 1;
 
     // Getters for properties
     public StringProperty getDisplayTextProperty () { return displayText; }
@@ -16,9 +19,21 @@ public class CalculatorViewModel {
 
     public void handleDigit(String digit) {
         try {
-            String newValue = displayText.get().equals("0") ? digit : displayText.get() + digit;
+            String newValue = displayText.get().equals("0.0") ? digit : displayText.get() + digit;
             displayText.set(newValue);
-            model.setCurrentInput(Double.parseDouble(newValue));
+            switch (inputChoice) {
+                case 1:
+                    System.out.println("ACC");
+                    System.out.println(newValue);
+                    model.setAccumulator(Double.parseDouble(newValue));
+                    break;
+                case 2:
+                    System.out.println("CUR");
+                    System.out.println(newValue);
+                    model.setCurrentInput(Double.parseDouble(newValue));
+                    break;
+            }
+
         } catch (NumberFormatException e) {
             errorText.set("Invalid input");
         }
@@ -26,13 +41,15 @@ public class CalculatorViewModel {
 
     public void handleOperation(String op) {
         try {
+            if (!op.equals("=")) {
+                model.setOperation(op);
+            }
+
             switch (op) {
-                case "+" -> model.add();
-                case "-" -> model.subtract();
-                case "*" -> model.multiplication();
-                case "/" -> model.division();
-                case "round" -> model.roundAccumulator();
-                case "C" -> model.clear();
+                case "+", "-", "*", "/" -> { inputChoice = 2; displayText.set("0.0");}
+                case "round" -> inputChoice = 1; //???????????
+                case "C" -> inputChoice = 1;
+                case "=" -> {inputChoice = 3; model.execute();}
             }
             updateDisplay();
         } catch (IllegalArgumentException e) {
@@ -41,6 +58,17 @@ public class CalculatorViewModel {
     }
 
     private void updateDisplay() {
-        displayText.set(String.valueOf(model.getAccumulator()));
+        switch (inputChoice) {
+            case 1:
+                displayText.set(String.valueOf(model.getAccumulator()));
+                break;
+            case 2:
+                displayText.set(String.valueOf(model.getCurrentInput()));
+                break;
+            case 3:
+                displayText.set(String.valueOf(model.getAccumulator()));
+                inputChoice = 2;
+        }
+
     }
 }
