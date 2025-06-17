@@ -125,7 +125,11 @@ public class CalculatorModel {
             case "C":
                 clear();
                 break;
+            default:
+                throw new IllegalArgumentException("Operation not selected");
         }
+        operation = "";
+
         System.out.println("Готово!");
         System.out.println(getAccumulator());
         System.out.println(getCurrentInput());
