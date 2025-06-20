@@ -7,7 +7,7 @@ public class CalculatorViewModel {
     private final CalculatorModel model = new CalculatorModel();
 
     // Properties for binding with View
-    private final StringProperty displayText = new SimpleStringProperty("0.0");
+    private final StringProperty displayText = new SimpleStringProperty("");
     private final StringProperty errorText = new SimpleStringProperty("");
 
     // Getters for properties
@@ -16,7 +16,8 @@ public class CalculatorViewModel {
 
     public void handleDigit(String digit) {
         try {
-            String newValue = displayText.get().equals("0.0") ? digit : displayText.get() + digit;
+            clearErrorText();
+            String newValue = displayText.get().isEmpty() ? digit : displayText.get() + digit;
             displayText.set(newValue);
             model.setCurrentInput(Double.parseDouble(newValue));
         } catch (NumberFormatException e) {
@@ -26,6 +27,8 @@ public class CalculatorViewModel {
 
     public void handleOperation(String op) {
         try {
+            clearErrorText();
+            clearDisplay();
             if (!op.equals("=")) {
                 model.setOperation(op);
             }
@@ -34,7 +37,10 @@ public class CalculatorViewModel {
                 case "C" -> model.clear();
                 case "=" -> model.execute();
             }
+
+            if (op.equals("=")) {
             updateDisplay();
+            }
         } catch (IllegalArgumentException e) {
             errorText.set(e.getMessage());
         }
@@ -42,14 +48,31 @@ public class CalculatorViewModel {
 
     public void handleDot(String op) {
         try {
-            //
-            updateDisplay();
+            if (!displayText.get().contains(".")) {
+                displayText.set(displayText.get() + ".");
+            } else {
+                throw new IllegalArgumentException("The dot is already there");
+            }
+//            updateDisplay();
         } catch (IllegalArgumentException e) {
             errorText.set(e.getMessage());
         }
     }
 
+    private void clearDisplay() {
+        displayText.set("");
+    }
+
+    private void clearErrorText() {
+        errorText.set("");
+    }
+
     private void updateDisplay() {
-        displayText.set(String.valueOf(model.getCurrentInput()));
+        if (model.getCurrentInput() == (int) model.getCurrentInput()) {
+            displayText.set(String.valueOf((int) model.getCurrentInput()));
+        } else {
+            displayText.set(String.valueOf(model.getCurrentInput()));
+        }
+
     }
 }

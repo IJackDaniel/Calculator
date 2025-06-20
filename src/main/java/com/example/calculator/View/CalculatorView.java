@@ -54,11 +54,10 @@ public class CalculatorView extends Application{
         }
 
         // Create split equals and round buttons
-        HBox splitButtons = new HBox(5);
-//        splitButtons.setMaxWidth(240);
+        HBox splitButtons = new HBox(4);
 
         Button roundBtn = new Button("round");
-        roundBtn.setMinSize(60, 50);
+        roundBtn.setMinSize(50, 50);
         roundBtn.setOnAction(e -> viewModel.handleOperation("round"));
 
         Button equalsBtn = new Button("=");
