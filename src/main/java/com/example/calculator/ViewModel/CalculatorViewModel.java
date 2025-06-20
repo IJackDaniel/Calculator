@@ -53,7 +53,6 @@ public class CalculatorViewModel {
             } else {
                 throw new IllegalArgumentException("The dot is already there");
             }
-//            updateDisplay();
         } catch (IllegalArgumentException e) {
             errorText.set(e.getMessage());
         }
