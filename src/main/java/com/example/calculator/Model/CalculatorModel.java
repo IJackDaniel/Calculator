@@ -30,6 +30,7 @@ public class CalculatorModel {
     }
 
     public void setOperation(String op) {
+        moveValues();
         operation = op;
     }
 
@@ -64,36 +65,37 @@ public class CalculatorModel {
         return Math.round(value * scale) / scale;
     }
 
+    private void moveValues() {
+        accumulator = currentInput;
+        currentInput = 0.0;
+    }
+
     // Operations
     public void roundAccumulator() {
         if (!isInteger(currentInput)) {
             currentInput = 0;
             throw new IllegalArgumentException("Second number must be integer");
         }
-        accumulator = round(accumulator, (int) currentInput);
+        currentInput = round(accumulator, (int) currentInput);
     }
 
     public void add() {
-        accumulator = round(accumulator + currentInput, accuracy);
-        currentInput = 0;
+        currentInput = round(accumulator + currentInput, accuracy);
     }
 
     public void subtract() {
-        accumulator = round(accumulator - currentInput, accuracy);
-        currentInput = 0;
+        currentInput = round(accumulator - currentInput, accuracy);
     }
 
     public void multiplication() {
-        accumulator = round(accumulator * currentInput, accuracy);
-        currentInput = 0;
+        currentInput = round(accumulator * currentInput, accuracy);
     }
 
     public void division() {
         if (!isNotZero(currentInput)) {
             throw new IllegalArgumentException("Second number must not be zero");
         }
-        accumulator = round(accumulator / currentInput, accuracy);
-        currentInput = 0;
+        currentInput = round(accumulator / currentInput, accuracy);
     }
 
     public void clear() {
