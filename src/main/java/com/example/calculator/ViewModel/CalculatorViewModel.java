@@ -19,10 +19,6 @@ public class CalculatorViewModel {
             String newValue = displayText.get().equals("0.0") ? digit : displayText.get() + digit;
             displayText.set(newValue);
             model.setCurrentInput(Double.parseDouble(newValue));
-
-            System.out.println("Такие числа:");
-            System.out.println(model.getAccumulator());
-            System.out.println(model.getCurrentInput());
         } catch (NumberFormatException e) {
             errorText.set("Invalid input");
         }
@@ -35,13 +31,9 @@ public class CalculatorViewModel {
             }
 
             switch (op) {
-                case "+", "-", "*", "/", "round" -> { model.setCurrentInput(0.0); displayText.set("0.0"); }
                 case "C" -> model.clear();
                 case "=" -> model.execute();
             }
-            System.out.println("Такие числа:");
-            System.out.println(model.getAccumulator());
-            System.out.println(model.getCurrentInput());
             updateDisplay();
         } catch (IllegalArgumentException e) {
             errorText.set(e.getMessage());

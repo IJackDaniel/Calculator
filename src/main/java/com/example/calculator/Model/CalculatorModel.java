@@ -30,7 +30,7 @@ public class CalculatorModel {
     }
 
     public void setOperation(String op) {
-        moveValues();
+        swapValues();
         operation = op;
     }
 
@@ -65,7 +65,7 @@ public class CalculatorModel {
         return Math.round(value * scale) / scale;
     }
 
-    private void moveValues() {
+    private void swapValues() {
         accumulator = currentInput;
         currentInput = 0.0;
     }
@@ -104,10 +104,6 @@ public class CalculatorModel {
     }
 
     public void execute() {
-        System.out.println("Выполняю");
-        System.out.println(getAccumulator());
-        System.out.println(getCurrentInput());
-        System.out.println(getOperation());
         switch (operation) {
             case "+":
                 add();
@@ -131,10 +127,5 @@ public class CalculatorModel {
                 throw new IllegalArgumentException("Operation not selected");
         }
         operation = "";
-
-        System.out.println("Готово!");
-        System.out.println(getAccumulator());
-        System.out.println(getCurrentInput());
-        System.out.println(getOperation());
     }
 }
