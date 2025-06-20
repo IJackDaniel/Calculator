@@ -31,7 +31,7 @@ public class CalculatorView extends Application{
                 {"7", "8", "9", "/"},
                 {"4", "5", "6", "*"},
                 {"1", "2", "3", "-"},
-                {"0", "round", "C", "+"}
+                {"C", "0", ".", "+"}
         };
 
         for (int row = 0; row < buttonLabels.length; row++) {
@@ -43,6 +43,8 @@ public class CalculatorView extends Application{
 
                 if (Character.isDigit(buttonText.charAt(0))) {
                     btn.setOnAction(e -> viewModel.handleDigit(buttonText));
+                } else if (buttonText.equals(".")) {
+                    btn.setOnAction(e -> viewModel.handleDot(buttonText));
                 } else {
                     btn.setOnAction(e -> viewModel.handleOperation(buttonText));
                 }
@@ -50,14 +52,32 @@ public class CalculatorView extends Application{
                 buttonsGrid.add(btn, col, row);
             }
         }
+
+        // Create split equals and round buttons
+        HBox splitButtons = new HBox(5);
+//        splitButtons.setMaxWidth(240);
+
+        Button roundBtn = new Button("round");
+        roundBtn.setMinSize(60, 50);
+        roundBtn.setOnAction(e -> viewModel.handleOperation("round"));
+
         Button equalsBtn = new Button("=");
         equalsBtn.setMinHeight(50);
-        equalsBtn.setMaxWidth(240);
+        equalsBtn.setMaxWidth(Double.MAX_VALUE);
         equalsBtn.setStyle("-fx-font-size: 18px;");
         equalsBtn.setOnAction(e -> viewModel.handleOperation("="));
 
+        HBox.setHgrow(equalsBtn, Priority.ALWAYS);
+        splitButtons.getChildren().addAll(roundBtn, equalsBtn);
+
+//        Button equalsBtn = new Button("=");
+//        equalsBtn.setMinHeight(50);
+//        equalsBtn.setMaxWidth(240);
+//        equalsBtn.setStyle("-fx-font-size: 18px;");
+//        equalsBtn.setOnAction(e -> viewModel.handleOperation("="));
+
         // Interface
-        VBox root = new VBox(10, display, errorLabel, buttonsGrid, equalsBtn);
+        VBox root = new VBox(10, display, errorLabel, buttonsGrid, splitButtons);
         root.setPadding(new Insets(10));
         root.setStyle("-fx-background-color: #f0f0f0;");
 

@@ -1,11 +1,11 @@
 package com.example.calculator.Model;
 
 public class CalculatorModel {
-    private double accumulator;
-    private double currentInput;
+    private double accumulator = 0.0;
+    private double currentInput = 0.0;
     private int accuracy = 5;
     double EPSILON = 0.0000001;
-    private String operation;
+    private String operation = "";
 
     // standard constructor
     public CalculatorModel() { }

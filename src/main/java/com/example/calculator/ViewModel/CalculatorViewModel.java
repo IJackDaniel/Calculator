@@ -40,6 +40,15 @@ public class CalculatorViewModel {
         }
     }
 
+    public void handleDot(String op) {
+        try {
+            //
+            updateDisplay();
+        } catch (IllegalArgumentException e) {
+            errorText.set(e.getMessage());
+        }
+    }
+
     private void updateDisplay() {
         displayText.set(String.valueOf(model.getCurrentInput()));
     }
